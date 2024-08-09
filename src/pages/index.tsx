@@ -1,10 +1,13 @@
 import { useState } from 'react';
 
-export default function Home() {
-    const [score, setScore] = useState(0);
-    const [buttonStates, setButtonStates] = useState({});
+// 단어와 점수 상태의 타입을 정의합니다
+type ButtonStates = Record<string, boolean>;
 
-    const updateScore = (word) => {
+export default function Home() {
+    const [score, setScore] = useState<number>(0);
+    const [buttonStates, setButtonStates] = useState<ButtonStates>({});
+
+    const updateScore = (word: string) => {
         const positiveWords = ['고마워', '기분좋다', '덕분이야', '할 수 있어', '기대', '사랑', '잘될거야', '충분'];
         const isPositive = positiveWords.includes(word);
 
