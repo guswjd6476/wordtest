@@ -14,7 +14,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 username,
                 password,
             ]);
-            console.log(result.rows, '?????');
 
             if (result.rows.length > 0) {
                 // Generate JWT token
