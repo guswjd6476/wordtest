@@ -109,7 +109,7 @@ export default function Home() {
     }, [animationStage, selectedOption]);
 
     const goToNextPage = () => {
-        if (currentPage < 8) {
+        if (currentPage < 7) {
             setCurrentPage(currentPage + 1);
         }
     };
@@ -282,7 +282,7 @@ export default function Home() {
                         이전
                     </button>
                 )}
-                {currentPage < 8 && (
+                {currentPage < 7 && (
                     <button
                         onClick={goToNextPage}
                         className="px-4 py-2 bg-blue-500 text-white rounded shadow-lg hover:bg-blue-600 transition duration-300 ease-in-out"

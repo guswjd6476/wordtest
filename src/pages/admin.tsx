@@ -41,7 +41,7 @@ const Admin: React.FC = () => {
                 alert('로그인 되었습니다');
                 login(); // 로그인 상태로 설정
                 // Redirect to Admin page
-                router.push('/Admin');
+                router.push('/admin');
             } else if (token && grade !== 1) {
                 alert('인증받지 못한 아이디 입니다');
             } else {
