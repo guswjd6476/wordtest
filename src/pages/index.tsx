@@ -1,7 +1,7 @@
-import FeedbackForm from '@/components/FeedbackForm';
-import ScoreResult from '@/components/ScoreResult';
-import WordSelection from '@/components/WordSelection';
 import { useState, useEffect } from 'react';
+import FeedbackForm from './components/FeedbackForm';
+import ScoreResult from './components/ScoreResult';
+import WordSelection from './components/WordSelection';
 
 export default function Home() {
     const [score, setScore] = useState<number>(0);
