@@ -1,3 +1,6 @@
+import FeedbackForm from '@/components/FeedbackForm';
+import ScoreResult from '@/components/ScoreResult';
+import WordSelection from '@/components/WordSelection';
 import { useState, useEffect } from 'react';
 
 export default function Home() {
@@ -106,7 +109,7 @@ export default function Home() {
     }, [animationStage, selectedOption]);
 
     const goToNextPage = () => {
-        if (currentPage < 6) {
+        if (currentPage < 8) {
             setCurrentPage(currentPage + 1);
         }
     };
@@ -119,72 +122,22 @@ export default function Home() {
 
     return (
         <div className="flex flex-col items-center p-8 font-sans">
-            <h1 className="text-3xl font-bold mb-4">말씀광장 노원지부 단어 클릭 점수 게임</h1>
-
+            {currentPage === 1 && <h1 className="text-3xl font-bold mb-4">말씀광장 노원지부 단어 클릭 점수 게임</h1>}
             {currentPage === 1 && (
-                <div className="flex flex-col items-center">
-                    <div className="flex flex-wrap gap-4 mb-6">
-                        {[
-                            '고마워',
-                            '기분좋다',
-                            '덕분이야',
-                            '할 수 있어',
-                            '기대',
-                            '사랑',
-                            '잘될거야',
-                            '충분',
-                            '미룸',
-                            '짜증',
-                            '후회',
-                            '못하겠어',
-                            '이제그만해',
-                            '우울하다',
-                            '죽겠다',
-                            '지겹다',
-                            '최악이다',
-                            '그게아니라',
-                            '멋져',
-                            '잘했어',
-                            '불만',
-                            '실망',
-                        ].map((word) => (
-                            <button
-                                key={word}
-                                onClick={() => updateScore(word)}
-                                className={`px-4 py-2 text-lg rounded transition duration-300 ease-in-out ${
-                                    buttonStates[word] ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'
-                                }`}
-                            >
-                                {word}
-                            </button>
-                        ))}
-                    </div>
-                    <button
-                        onClick={() => setCurrentPage(2)}
-                        className="px-4 py-2 bg-green-500 text-white rounded shadow-lg hover:bg-green-600 transition duration-300 ease-in-out"
-                    >
-                        확인
-                    </button>
-                </div>
+                <WordSelection
+                    currentPage={currentPage}
+                    buttonStates={buttonStates}
+                    updateScore={updateScore}
+                    setCurrentPage={setCurrentPage}
+                />
             )}
 
             {currentPage === 2 && (
-                <div className="mt-6 p-4 bg-gray-100 rounded shadow-lg max-w-md">
-                    <h2 className="text-2xl font-semibold mb-2">점수 결과</h2>
-                    <p className="text-xl mb-4">
-                        현재 점수: <span className="font-bold">{score}</span>
-                    </p>
-                    <h3 className="text-xl font-semibold mb-2">점수 등급</h3>
-                    <p className="mb-4">{score >= 10 ? '상' : score >= 0 ? '중' : '하'}</p>
-                    <h3 className="text-xl font-semibold mb-2">제안 사항</h3>
-                    <p>{getSuggestion(score)}</p>
-                    <button
-                        onClick={() => setCurrentPage(3)}
-                        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded shadow-lg hover:bg-blue-600 transition duration-300 ease-in-out"
-                    >
-                        다음
-                    </button>
-                </div>
+                <ScoreResult
+                    currentPage={currentPage}
+                    score={score}
+                    getSuggestion={getSuggestion}
+                />
             )}
             {currentPage === 3 && (
                 <div className="flex flex-col items-center mt-6 p-4 bg-gray-100 rounded shadow-lg max-w-md">
@@ -221,12 +174,6 @@ export default function Home() {
                             className="w-full max-w-xs rounded shadow-lg"
                         />
                     </div>
-                    <button
-                        onClick={() => setCurrentPage(1)} // Return to the first page
-                        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded shadow-lg hover:bg-blue-600 transition duration-300 ease-in-out"
-                    >
-                        다시 시작하기
-                    </button>
                 </div>
             )}
 
@@ -295,41 +242,37 @@ export default function Home() {
                                 3. 깨끗한 물을 계속 붓는다
                             </button>
                         </div>
-                        {selectedOption === '3' && (
-                            <button
-                                onClick={() => {
-                                    goToNextPage();
-                                    setAnimationStage('initial'); // Reset animation stage for next use
-                                }}
-                                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded shadow-lg hover:bg-blue-600 transition duration-300 ease-in-out"
-                            >
-                                다음으로 넘어가기
-                            </button>
-                        )}
                     </div>
                 </div>
             )}
-
             {currentPage === 5 && (
                 <div className="flex flex-col items-center mt-6 p-4 bg-gray-100 rounded shadow-lg max-w-md">
+                    <img
+                        src="https://ifh.cc/g/2RLlys.jpg"
+                        className="w-full max-w-xs rounded shadow-lg mb-4"
+                    />
+                </div>
+            )}
+            {currentPage === 6 && (
+                <div className="flex flex-col items-center mt-6 p-4 bg-gray-100 rounded shadow-lg max-w-md">
                     <h2 className="text-2xl font-semibold mb-4">워드스퀘어(말씀광장)에서 제공하는 양질의 콘텐츠</h2>
+                    <img
+                        src="https://ifh.cc/g/NLDC0J.jpg"
+                        alt="성경의 우수성"
+                        className="w-full max-w-xs rounded shadow-lg mb-4"
+                    />
                     <img
                         src="https://ifh.cc/g/j3Z4Lh.jpg"
                         alt="워드스퀘어 콘텐츠"
                         className="w-full max-w-xs rounded shadow-lg mb-4"
                     />
+
                     <p className="text-lg">
                         워드스퀘어(말씀광장)에서도 좋은 양질의 콘텐츠를 이와 같이 제공하고 있습니다.
                     </p>
-                    <button
-                        onClick={() => setCurrentPage(1)} // Return to the first page
-                        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded shadow-lg hover:bg-blue-600 transition duration-300 ease-in-out"
-                    >
-                        다시 시작하기
-                    </button>
                 </div>
             )}
-
+            {currentPage === 7 && <FeedbackForm />}
             <div className="flex justify-between w-full mt-6">
                 {currentPage > 1 && (
                     <button
@@ -339,7 +282,7 @@ export default function Home() {
                         이전
                     </button>
                 )}
-                {currentPage < 6 && (
+                {currentPage < 8 && (
                     <button
                         onClick={goToNextPage}
                         className="px-4 py-2 bg-blue-500 text-white rounded shadow-lg hover:bg-blue-600 transition duration-300 ease-in-out"
